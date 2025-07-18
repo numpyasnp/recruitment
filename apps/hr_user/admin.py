@@ -4,5 +4,5 @@ from .models import HRUser
 
 
 @admin.register(HRUser)
-class AccountAdmin(admin.ModelAdmin):
+class HrUserAdmin(admin.ModelAdmin):
     list_display = ["username"]

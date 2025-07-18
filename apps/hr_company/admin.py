@@ -4,5 +4,5 @@ from .models import HRCompany
 
 
 @admin.register(HRCompany)
-class AccountAdmin(admin.ModelAdmin):
+class HrCompanyAdmin(admin.ModelAdmin):
     list_display = ["name"]
