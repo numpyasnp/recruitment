@@ -3,7 +3,6 @@ from django.db import models
 from libs.abstract.models import TimeStampedModel
 
 
-# JobPosting: Job post, linked to HRCompany and ClientCompany
 class JobPosting(TimeStampedModel):
     hr_company = models.ForeignKey("hr_company.HRCompany", on_delete=models.CASCADE, related_name="job_postings")
     client_company = models.ForeignKey(
