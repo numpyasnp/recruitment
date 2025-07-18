@@ -22,8 +22,6 @@ class CandidateFlow(TimeStampedModel):
     status = models.ForeignKey(
         "Status", on_delete=models.SET_NULL, null=True, blank=True, related_name="candidate_flows"
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.candidate} - {self.job_posting}"
@@ -43,7 +41,6 @@ class Activity(TimeStampedModel):
     activity_type = models.CharField(max_length=50, choices=ACTIVITY_TYPE_CHOICES)
     status = models.ForeignKey("Status", on_delete=models.SET_NULL, null=True, blank=True, related_name="activities")
     note = models.TextField(blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.get_activity_type_display()} - {self.candidate_flow}"
