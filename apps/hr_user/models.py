@@ -13,4 +13,4 @@ class HRUser(AbstractUser, TimeStampedModel):
     client_companies = models.ManyToManyField(ClientCompany, related_name="authorized_hr_users", blank=True)
 
     def __str__(self):
-        return f"{self.username} ({self.hr_company.name if self.hr_company else ''})"
+        return self.username
