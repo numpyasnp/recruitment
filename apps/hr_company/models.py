@@ -1,6 +1,6 @@
 from django.db import models
 
-from libs.abstract import TimeStampedModel
+from libs.abstract.models import TimeStampedModel
 
 
 # HRCompany: Human Resources company (İK şirketi)

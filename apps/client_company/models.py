@@ -1,6 +1,6 @@
 from django.db import models
 
-from libs.abstract import TimeStampedModel
+from libs.abstract.models import TimeStampedModel
 
 
 # ClientCompany: Client company (Müşteri şirketi)

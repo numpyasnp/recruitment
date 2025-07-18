@@ -1,6 +1,6 @@
 from django.db import models
 
-from libs.abstract import TimeStampedModel
+from libs.abstract.models import TimeStampedModel
 
 
 # Status: Status for CandidateFlow (e.g. Positive, Negative, Completed)
@@ -17,7 +17,7 @@ class CandidateFlow(TimeStampedModel):
     job_posting = models.ForeignKey("job.JobPosting", on_delete=models.CASCADE, related_name="candidate_flows")
     candidate = models.ForeignKey("candidate.Candidate", on_delete=models.CASCADE, related_name="candidate_flows")
     hr_user = models.ForeignKey(
-        "user.HRUser", on_delete=models.SET_NULL, null=True, blank=True, related_name="candidate_flows"
+        "hr_user.HRUser", on_delete=models.SET_NULL, null=True, blank=True, related_name="candidate_flows"
     )
     status = models.ForeignKey(
         "Status", on_delete=models.SET_NULL, null=True, blank=True, related_name="candidate_flows"
@@ -38,7 +38,7 @@ class Activity(TimeStampedModel):
     ]
     candidate_flow = models.ForeignKey("CandidateFlow", on_delete=models.CASCADE, related_name="activities")
     hr_user = models.ForeignKey(
-        "user.HRUser", on_delete=models.SET_NULL, null=True, blank=True, related_name="activities"
+        "hr_user.HRUser", on_delete=models.SET_NULL, null=True, blank=True, related_name="activities"
     )
     activity_type = models.CharField(max_length=50, choices=ACTIVITY_TYPE_CHOICES)
     status = models.ForeignKey("Status", on_delete=models.SET_NULL, null=True, blank=True, related_name="activities")

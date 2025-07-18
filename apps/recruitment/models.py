@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
-from libs.abstract import TimeStampedModel
+from libs.abstract.models import TimeStampedModel
 
 
 # 1. HRCompany: Human Resources company (İK şirketi)
@@ -22,8 +22,8 @@ class ClientCompany(TimeStampedModel):
         return self.name
 
 
-# 3. HRUser: HR user, linked to HRCompany and authorized ClientCompanies
-#    (Not a custom user yet, just extends User with extra fields)
+# 3. HRUser: HR hr_user, linked to HRCompany and authorized ClientCompanies
+#    (Not a custom hr_user yet, just extends User with extra fields)
 class HRUser(TimeStampedModel):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
     hr_company = models.ForeignKey(HRCompany, on_delete=models.CASCADE, related_name="hr_users")

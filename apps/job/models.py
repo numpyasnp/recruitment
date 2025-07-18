@@ -1,6 +1,6 @@
 from django.db import models
 
-from libs.abstract import TimeStampedModel
+from libs.abstract.models import TimeStampedModel
 
 
 # JobPosting: Job post, linked to HRCompany and ClientCompany

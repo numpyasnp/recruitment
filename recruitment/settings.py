@@ -37,6 +37,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # APPS
+    "apps.candidate",
+    "apps.client_company",
+    "apps.flow",
+    "apps.hr_company",
+    "apps.hr_user",
+    "apps.job",
+    "apps.recruitment",
 ]
 
 MIDDLEWARE = [
