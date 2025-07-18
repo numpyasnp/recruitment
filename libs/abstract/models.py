@@ -14,3 +14,11 @@ class TimeStampedModel(models.Model):
         if update_fields:
             update_fields = [*update_fields, "date_updated"]
         return super().save(force_insert, force_update, using, update_fields)
+
+
+class PeriodMixin(models.Model):
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+
+    class Meta:
+        abstract = True

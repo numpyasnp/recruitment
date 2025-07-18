@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     "apps.hr_company",
     "apps.hr_user",
     "apps.job",
-    "apps.recruitment",
 ]
 
 MIDDLEWARE = [
@@ -105,6 +104,8 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+AUTH_USER_MODEL = "hr_user.HRUser"
 
 
 # Internationalization
