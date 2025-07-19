@@ -32,7 +32,7 @@ class HRUser(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
     email = customfields.EmailField(
         max_length=254,
         unique=True,
-        error_messages={"unique": _("The username or password you entered is incorrect.")},
+        error_messages={"unique": _("Email already exist")},
         verbose_name=_("email address"),
     )
     is_staff = property(lambda self: self.is_superuser)

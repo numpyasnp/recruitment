@@ -20,10 +20,7 @@ class HRUserCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         password = validated_data.pop("password", None)
-        user = super().create(validated_data)
-        if password:
-            user.set_password(password)
-            user.save(update_fields=["password"])
+        user = HRUser.objects.create_user(password=password, **validated_data)
         return user
 
 
@@ -48,5 +45,5 @@ class HRUserUpdateSerializer(serializers.ModelSerializer):
         user = super().update(instance, validated_data)
         if password:
             user.set_password(password)
-            user.save(update_fields=["password"])
+            user.save()
         return user

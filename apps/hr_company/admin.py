@@ -5,4 +5,4 @@ from .models import HRCompany
 
 @admin.register(HRCompany)
 class HrCompanyAdmin(admin.ModelAdmin):
-    list_display = ["name"]
+    list_display = ["id", "name"]

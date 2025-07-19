@@ -1,2 +1,2 @@
-class AccountErrorCodes:
-    DOES_NOT_EXISTS = "ACC-101"
+class HRUserErrorCodes:
+    DOES_NOT_EXISTS = "HR_USR-101"

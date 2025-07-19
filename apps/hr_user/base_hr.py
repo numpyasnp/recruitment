@@ -6,25 +6,22 @@ from django.db.models.manager import BaseManager
 
 class BaseHRQuerySet(QuerySet):
     @transaction.atomic
-    def create_user(self, email: str, password=None):
+    def create_user(self, email: str, password: str, name: str = "", last_name: str = ""):
         if not email:
             raise ValueError("Users must have an email address")
 
-        user = self.create(email=email, password=password)
+        if not password:
+            raise ValueError("Password may not blank")
 
-        if password is not None:
-            user.set_password(password)
-        else:
-            user.set_unusable_password()
-
-        user.save(using=self._db)
-
+        user = self.create(email=email, password=password, name=name, last_name=last_name)
+        user.set_password(password)
+        user.save()
         return user
 
-    def create_superuser(self, email, password):
-        user = self.create_user(email, password=password)
+    def create_superuser(self, email: str, password: str, name: str, last_name: str):
+        user = self.create_user(email, password=password, name=name, last_name=last_name)
         user.is_superuser = True
-        user.save(using=self._db)
+        user.save()
         return user
 
 
