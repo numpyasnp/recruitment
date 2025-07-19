@@ -13,6 +13,11 @@ class Candidate(TimeStampedModel):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
+    class Meta:
+        verbose_name = "Candidate"
+        verbose_name_plural = "Candidates"
+        db_table = "candidate"
+
 
 class Education(TimeStampedModel, PeriodMixin):
     candidate = models.ForeignKey("Candidate", on_delete=models.CASCADE, related_name="educations")
@@ -22,6 +27,11 @@ class Education(TimeStampedModel, PeriodMixin):
     def __str__(self):
         return f"{self.department}"
 
+    class Meta:
+        verbose_name = "Education"
+        verbose_name_plural = "Educations"
+        db_table = "education"
+
 
 class WorkExperience(TimeStampedModel, PeriodMixin):
     candidate = models.ForeignKey("Candidate", on_delete=models.CASCADE, related_name="work_experiences")
@@ -30,3 +40,8 @@ class WorkExperience(TimeStampedModel, PeriodMixin):
 
     def __str__(self):
         return f"{self.company} - {self.candidate.first_name} {self.candidate.last_name}"
+
+    class Meta:
+        verbose_name = "Work Experience"
+        verbose_name_plural = "Work Experiences"
+        db_table = "work_experience"

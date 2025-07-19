@@ -27,6 +27,11 @@ class JobPosting(TimeStampedModel):
 
     objects = JobPostingQuerySet.as_manager()
 
+    class Meta:
+        verbose_name = "Job Posting"
+        verbose_name_plural = "Job Postings"
+        db_table = "job_posting"
+
     def __str__(self):
         return f"{self.title} ({self.client_company.name})"
 

@@ -42,3 +42,8 @@ class HRUser(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "HR User"
+        verbose_name_plural = "HR Users"
+        db_table = "hr_user"

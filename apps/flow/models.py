@@ -10,6 +10,11 @@ class Status(TimeStampedModel):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = "Status"
+        verbose_name_plural = "Statuses"
+        db_table = "status"
+
 
 class CandidateFlow(TimeStampedModel):
     job_posting = models.ForeignKey("job_posting.JobPosting", on_delete=models.CASCADE, related_name="candidate_flows")
@@ -26,6 +31,9 @@ class CandidateFlow(TimeStampedModel):
 
     class Meta:
         unique_together = ("job_posting", "candidate")
+        verbose_name = "Candidate Flow"
+        verbose_name_plural = "Candidate Flows"
+        db_table = "candidate_flow"
 
 
 class Activity(TimeStampedModel):
@@ -44,3 +52,8 @@ class Activity(TimeStampedModel):
 
     def __str__(self):
         return f"{self.get_activity_type_display()} - {self.candidate_flow}"
+
+    class Meta:
+        verbose_name = "Activity"
+        verbose_name_plural = "Activities"
+        db_table = "activity"

@@ -8,3 +8,8 @@ class ClientCompany(TimeStampedModel):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "Client Company"
+        verbose_name_plural = "Client Companies"
+        db_table = "client_company"
