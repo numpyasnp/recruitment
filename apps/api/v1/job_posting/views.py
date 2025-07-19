@@ -24,6 +24,9 @@ class JobPostingViewSet(viewsets.ModelViewSet):
         queryset = queryset.can_manage_job_post(user=self.request.user)  # todo: ASK: need filter active job post ?
         return queryset
 
+    def perform_create(self, serializer):
+        serializer.save(hr_user=self.request.user)
+
     @action(detail=True, methods=["post"])
     def activate(self, request, pk=None):
         job_posting = self.get_object()

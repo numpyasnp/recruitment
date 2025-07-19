@@ -8,7 +8,6 @@ class JobPostingCreateSerializer(serializers.ModelSerializer):
         model = JobPosting
         fields = [
             "id",
-            "hr_user",
             "hr_company",
             "client_company",
             "title",
