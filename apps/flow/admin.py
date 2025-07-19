@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import CandidateFlow, Status, Activity
+from .models import CandidateFlow, Status, Activity, CandidateActivityLog
 
 
 @admin.register(CandidateFlow)
@@ -18,3 +18,9 @@ class StatusAdmin(admin.ModelAdmin):
 class ActivityAdmin(admin.ModelAdmin):
     list_select_related = ("candidate_flow", "hr_user")
     list_display = ["id", "candidate_flow", "hr_user", "status", "note"]
+
+
+@admin.register(CandidateActivityLog)
+class CandidateActivityLogAdmin(admin.ModelAdmin):
+    list_select_related = ("candidate_flow", "activity_type", "status_type", "created_by")
+    list_display = ["id", "candidate_flow", "activity_type", "status_type", "created_by", "note"]
