@@ -1,12 +1,13 @@
 from django.db import models
 
+from libs import customfields
 from libs.abstract.models import TimeStampedModel, PeriodMixin
 
 
 class Candidate(TimeStampedModel):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    email = models.EmailField(unique=True)
+    email = customfields.EmailField(unique=True)
     phone = models.CharField(max_length=20, blank=True)
 
     def __str__(self):

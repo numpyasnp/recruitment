@@ -3,7 +3,6 @@ from django.db import models
 from libs.abstract.models import TimeStampedModel
 
 
-# Status: Status for CandidateFlow (e.g. Positive, Negative, Completed)
 class Status(TimeStampedModel):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
@@ -12,7 +11,6 @@ class Status(TimeStampedModel):
         return self.name
 
 
-# CandidateFlow: Connects Candidate and JobPosting, tracks status and activities
 class CandidateFlow(TimeStampedModel):
     job_posting = models.ForeignKey("job_posting.JobPosting", on_delete=models.CASCADE, related_name="candidate_flows")
     candidate = models.ForeignKey("candidate.Candidate", on_delete=models.CASCADE, related_name="candidate_flows")
@@ -26,8 +24,10 @@ class CandidateFlow(TimeStampedModel):
     def __str__(self):
         return f"{self.candidate} - {self.job_posting}"
 
+    class Meta:
+        unique_together = ("job_posting", "candidate")
 
-# Activity: Actions taken in CandidateFlow (e.g. phone call, email, test)
+
 class Activity(TimeStampedModel):
     ACTIVITY_TYPE_CHOICES = [
         ("phone_call", "Phone Call"),
