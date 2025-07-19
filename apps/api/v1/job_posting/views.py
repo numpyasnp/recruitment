@@ -3,14 +3,14 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
-from apps.api.permissions import CanHRUserManageJobPostingPermission
 from apps.job_posting.models import JobPosting
 from .serializers import JobPostingCreateSerializer, JobPostingUpdateSerializer, JobPostingListSerializer
+from apps.api.permissions.permissions import FlexibleHRUserPermission
 
 
 class JobPostingViewSet(viewsets.ModelViewSet):
     queryset = JobPosting.objects.select_related("hr_company", "client_company").all()
-    permission_classes = (CanHRUserManageJobPostingPermission, IsAuthenticated)
+    permission_classes = (FlexibleHRUserPermission, IsAuthenticated)
 
     def get_serializer_class(self):
         if self.action == "create":

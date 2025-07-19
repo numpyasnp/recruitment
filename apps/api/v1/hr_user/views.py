@@ -3,12 +3,11 @@ from rest_framework.permissions import IsAuthenticated
 
 from apps.hr_user.models import HRUser
 from .serializers import HRUserCreateSerializer, HRUserUpdateSerializer
-from apps.api.permissions import CanHRUserManageJobPostingPermission
 
 
 class HRUserViewSet(viewsets.ModelViewSet):
     queryset = HRUser.objects.select_related("hr_company").prefetch_related("client_companies").all()
-    permission_classes = [CanHRUserManageJobPostingPermission, IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get_serializer_class(self):
         if self.action == "create":
