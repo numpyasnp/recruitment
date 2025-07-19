@@ -1,9 +1,8 @@
 from http import HTTPStatus
 from typing import Optional
 
-from rest_framework.exceptions import APIException
-
 from apps.job_posting.errors.error_codes import JobPostingErrorCodes
+from libs.base_error import APIException
 
 
 class PermissionDenied(APIException):
