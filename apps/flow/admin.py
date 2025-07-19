@@ -11,13 +11,12 @@ class CandidateFlowAdmin(admin.ModelAdmin):
 
 @admin.register(Status)
 class StatusAdmin(admin.ModelAdmin):
-    list_display = ["id", "name", "description"]
+    list_display = ["id", "name", "note"]
 
 
 @admin.register(Activity)
 class ActivityAdmin(admin.ModelAdmin):
-    list_select_related = ("candidate_flow", "created_by")
-    list_display = ["id", "candidate_flow", "created_by", "status", "note"]
+    list_display = ["id", "name", "note"]
 
 
 @admin.register(CandidateActivityLog)

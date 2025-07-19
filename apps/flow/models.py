@@ -5,7 +5,7 @@ from libs.abstract.models import TimeStampedModel
 
 class Status(TimeStampedModel):
     name = models.CharField(max_length=100)
-    description = models.TextField(blank=True)
+    note = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
@@ -38,15 +38,10 @@ class CandidateFlow(TimeStampedModel):
 
 class Activity(TimeStampedModel):
     name = models.CharField(max_length=255)
-    candidate_flow = models.ForeignKey("CandidateFlow", on_delete=models.CASCADE, related_name="activities")
-    created_by = models.ForeignKey(
-        "hr_user.HRUser", on_delete=models.SET_NULL, null=True, blank=True, related_name="activities"
-    )
-    status = models.ForeignKey("Status", on_delete=models.SET_NULL, null=True, blank=True, related_name="activities")
     note = models.TextField(blank=True)
 
     def __str__(self):
-        return f"{self.get_activity_type_display()} - {self.candidate_flow}"
+        return self.name
 
     class Meta:
         verbose_name = "Activity"
