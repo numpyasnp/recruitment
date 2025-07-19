@@ -9,12 +9,11 @@ class HRUserCreateSerializer(serializers.ModelSerializer):
         model = HRUser
         fields = [
             "id",
-            "username",
-            "first_name",
+            "name",
             "last_name",
+            "email",
             "hr_company",
             "client_companies",
-            "date_joined",
             "password",
         ]
         read_only_fields = ["id", "date_joined"]
@@ -35,13 +34,11 @@ class HRUserUpdateSerializer(serializers.ModelSerializer):
         model = HRUser
         fields = [
             "id",
-            "username",
-            "email",
-            "first_name",
+            "name",
             "last_name",
+            "email",
             "hr_company",
             "client_companies",
-            "date_joined",
             "password",
         ]
         read_only_fields = ["id", "date_joined"]

@@ -5,4 +5,4 @@ from .models import HRUser
 
 @admin.register(HRUser)
 class HrUserAdmin(admin.ModelAdmin):
-    list_display = ["username"]
+    list_display = ["name"]
