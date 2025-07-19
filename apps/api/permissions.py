@@ -2,7 +2,6 @@ from rest_framework.permissions import BasePermission
 
 
 class CanHRUserManageJobPostingPermission(BasePermission):
-
     def has_object_permission(self, request, view, obj):
         hr_user = request.user
 
