@@ -37,6 +37,9 @@ class WorkExperience(TimeStampedModel, PeriodMixin):
     candidate = models.ForeignKey("Candidate", on_delete=models.CASCADE, related_name="work_experiences")
     company = models.CharField(max_length=255)
     position = models.CharField(max_length=255)
+    tech_stack = models.TextField(
+        blank=True, help_text="List of the technologies stack, separated by comma e.g Python, Django, PostgreSQL"
+    )
 
     def __str__(self):
         return f"{self.company} - {self.candidate.first_name} {self.candidate.last_name}"
