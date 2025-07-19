@@ -17,4 +17,4 @@ class StatusAdmin(admin.ModelAdmin):
 @admin.register(Activity)
 class ActivityAdmin(admin.ModelAdmin):
     list_select_related = ("candidate_flow", "hr_user")
-    list_display = ["id", "candidate_flow", "hr_user", "activity_type", "status", "note"]
+    list_display = ["id", "candidate_flow", "hr_user", "status", "note"]

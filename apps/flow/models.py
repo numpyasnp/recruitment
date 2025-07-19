@@ -37,16 +37,11 @@ class CandidateFlow(TimeStampedModel):
 
 
 class Activity(TimeStampedModel):
-    ACTIVITY_TYPE_CHOICES = [
-        ("phone_call", "Phone Call"),
-        ("email_sent", "Email Sent"),
-        ("test_sent", "Test Sent"),
-    ]
+    name = models.CharField(max_length=255)
     candidate_flow = models.ForeignKey("CandidateFlow", on_delete=models.CASCADE, related_name="activities")
     hr_user = models.ForeignKey(
         "hr_user.HRUser", on_delete=models.SET_NULL, null=True, blank=True, related_name="activities"
     )
-    activity_type = models.CharField(max_length=50, choices=ACTIVITY_TYPE_CHOICES)
     status = models.ForeignKey("Status", on_delete=models.SET_NULL, null=True, blank=True, related_name="activities")
     note = models.TextField(blank=True)
 
@@ -57,3 +52,13 @@ class Activity(TimeStampedModel):
         verbose_name = "Activity"
         verbose_name_plural = "Activities"
         db_table = "activity"
+
+
+class CandidateActivityLog(TimeStampedModel):
+    candidate_flow = models.ForeignKey(CandidateFlow, on_delete=models.CASCADE, related_name="candidate_activities_log")
+    activity_type = models.ForeignKey(Activity, on_delete=models.PROTECT, related_name="candidate_activities_log")
+    status_type = models.ForeignKey(Status, on_delete=models.PROTECT, related_name="candidate_activities_log")
+    created_by = models.ForeignKey(
+        "hr_user.HRUser", on_delete=models.SET_NULL, null=True, related_name="candidate_activities_log"
+    )
+    note = models.TextField(blank=True, null=True)
