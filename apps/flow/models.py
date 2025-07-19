@@ -14,7 +14,7 @@ class Status(TimeStampedModel):
 
 # CandidateFlow: Connects Candidate and JobPosting, tracks status and activities
 class CandidateFlow(TimeStampedModel):
-    job_posting = models.ForeignKey("job.JobPosting", on_delete=models.CASCADE, related_name="candidate_flows")
+    job_posting = models.ForeignKey("job_posting.JobPosting", on_delete=models.CASCADE, related_name="candidate_flows")
     candidate = models.ForeignKey("candidate.Candidate", on_delete=models.CASCADE, related_name="candidate_flows")
     hr_user = models.ForeignKey(
         "hr_user.HRUser", on_delete=models.SET_NULL, null=True, blank=True, related_name="candidate_flows"

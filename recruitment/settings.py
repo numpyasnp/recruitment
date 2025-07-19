@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     "apps.flow",
     "apps.hr_company",
     "apps.hr_user",
-    "apps.job",
+    "apps.job_posting",
     # 3.rd parties
     "rest_framework",
     "django_filters",

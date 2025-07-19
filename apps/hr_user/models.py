@@ -26,8 +26,8 @@ class HRUser(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
 
     hr_company = models.ForeignKey(HRCompany, on_delete=models.CASCADE, related_name="hr_users", null=True, blank=True)
     client_companies = models.ManyToManyField(ClientCompany, related_name="authorized_hr_users", blank=True)
-    name = models.CharField(max_length=150)
-    last_name = models.CharField(max_length=150)
+    name = models.CharField(max_length=150, blank=True)
+    last_name = models.CharField(max_length=150, blank=True)
     is_active = models.BooleanField(default=True)
     email = customfields.EmailField(
         max_length=254,
