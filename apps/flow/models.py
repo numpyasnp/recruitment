@@ -62,3 +62,8 @@ class CandidateActivityLog(TimeStampedModel):
         "hr_user.HRUser", on_delete=models.SET_NULL, null=True, related_name="candidate_activities_log"
     )
     note = models.TextField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Candidate Activity Log"
+        verbose_name_plural = "Candidate Activity Logs"
+        db_table = "candidate_activity_log"
