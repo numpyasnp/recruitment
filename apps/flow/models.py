@@ -39,7 +39,7 @@ class CandidateFlow(TimeStampedModel):
 class Activity(TimeStampedModel):
     name = models.CharField(max_length=255)
     candidate_flow = models.ForeignKey("CandidateFlow", on_delete=models.CASCADE, related_name="activities")
-    hr_user = models.ForeignKey(
+    created_by = models.ForeignKey(
         "hr_user.HRUser", on_delete=models.SET_NULL, null=True, blank=True, related_name="activities"
     )
     status = models.ForeignKey("Status", on_delete=models.SET_NULL, null=True, blank=True, related_name="activities")
@@ -56,8 +56,8 @@ class Activity(TimeStampedModel):
 
 class CandidateActivityLog(TimeStampedModel):
     candidate_flow = models.ForeignKey(CandidateFlow, on_delete=models.CASCADE, related_name="candidate_activities_log")
-    activity_type = models.ForeignKey(Activity, on_delete=models.PROTECT, related_name="candidate_activities_log")
-    status_type = models.ForeignKey(Status, on_delete=models.PROTECT, related_name="candidate_activities_log")
+    activity = models.ForeignKey(Activity, on_delete=models.PROTECT, related_name="candidate_activities_log")
+    status = models.ForeignKey(Status, on_delete=models.PROTECT, related_name="candidate_activities_log")
     created_by = models.ForeignKey(
         "hr_user.HRUser", on_delete=models.SET_NULL, null=True, related_name="candidate_activities_log"
     )
