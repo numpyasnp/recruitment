@@ -53,3 +53,4 @@ dmypy.json
 
 # VS Code
 .vscode/
+/celerybeat-schedule

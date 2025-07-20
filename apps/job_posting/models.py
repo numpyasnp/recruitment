@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import QuerySet
+from django.utils import timezone
 
 from apps.hr_user.models import HRUser
 from libs.abstract.models import TimeStampedModel
@@ -9,9 +10,13 @@ class JobPostingQuerySet(QuerySet):
     def active(self):
         return self.filter(is_active=True)
 
-    def can_manage_job_post(self, user: HRUser):
+    def can_manage_job_post_by(self, user: HRUser):
         client_company_ids = user.client_companies.values_list("id", flat=True)
         return self.filter(hr_company=user.hr_company, client_company__id__in=[client_company_ids])
+
+    def expired_active(self):
+        today = timezone.now().date()
+        return self.filter(is_active=True, closing_date__date__lt=today)
 
 
 class JobPosting(TimeStampedModel):
