@@ -56,6 +56,26 @@ docker compose logs -f celery_worker
 docker compose down
 ```
 
+### 9. Örnek (Fake) Veri Yükleme
+
+Projede test ve geliştirme için sahte (fake) veri oluşturmak isterseniz, aşağıdaki komutu kullanabilirsiniz:
+
+```bash
+docker compose exec web python manage.py generate_fake_data
+```
+
+Bu komut ile veritabanına otomatik olarak:
+- 3 adet İK Şirketi
+- 5 adet Müşteri Şirketi
+- 10 adet İK Kullanıcısı
+- 20 adet İş İlanı
+- 50 adet Aday
+- Her adaya 1-3 Eğitim ve 1-3 İş Deneyimi
+
+eklenir.
+
+Her model için terminalde kaç adet veri oluşturulduğu bilgisini görebilirsiniz.
+
 ## Notlar
 - Tüm ayarlar `.env` veya `docker-compose.yml` içindeki environment değişkenleriyle yönetilir.
 - Migration'ları ve statik dosya toplama işlemlerini gerektiğinde manuel olarak çalıştırabilirsiniz.

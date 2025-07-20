@@ -20,4 +20,5 @@ dependencies = [
     "redis>=5.0.0",
     "django-celery-beat>=2.5.0",
     "flower>=2.0.0",
+    "faker>=37.4.2",
 ]

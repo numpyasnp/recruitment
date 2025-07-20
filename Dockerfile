@@ -13,7 +13,8 @@ RUN apt-get update && apt-get install -y \
 
 # Python bağımlılıklarını kopyala ve yükle
 COPY pyproject.toml ./
-RUN pip install uv && uv pip install -r pyproject.toml
+COPY requirements.txt ./
+RUN pip install uv && uv pip install --system -r pyproject.toml
 
 # Uygulama kodlarını kopyala
 COPY . .
