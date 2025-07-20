@@ -16,7 +16,7 @@ class JobPostingQuerySet(QuerySet):
 
     def expired_active(self):
         today = timezone.now().date()
-        return self.filter(is_active=True, closing_date__date__lt=today)
+        return self.filter(is_active=True, closing_date__lt=today)
 
 
 class JobPosting(TimeStampedModel):
