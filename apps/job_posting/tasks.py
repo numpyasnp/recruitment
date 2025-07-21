@@ -16,8 +16,15 @@ class DeactivateExpiredJobPostings(celery.Task):
         today = timezone.now().date()
         expired_job_postings = JobPosting.objects.expired_active()
 
-        # Bu iş ilanlarını pasif hale getir
+        if not expired_job_postings.exists():
+            return {
+                "message": "Pasif hale getirilecek iş ilanı bulunamadı.",
+                "deactivated_count": 0,
+                "execution_date": today.isoformat(),
+            }
+
         with transaction.atomic():
+            # todo: add chunk
             count = expired_job_postings.update(is_active=False)
             print(f"{count} adet süresi dolmuş iş ilanı pasif hale getirildi.")
 
