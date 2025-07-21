@@ -33,6 +33,6 @@ class HRSessionLoginView(APIView):
 
 
 class HRSessionLogoutView(APIView):
-    @transaction.atomic
     def post(self, request):
         logout(request)
+        return Response({"message": "Logout successful"}, status=200)
