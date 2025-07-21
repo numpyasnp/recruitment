@@ -102,7 +102,7 @@ DATABASES = {
         "ENGINE": config("DB_ENGINE", default="django.db.backends.postgresql"),
         "NAME": config("DB_NAME", default="ik_recruitment"),
         "USER": config("DB_USER", default="ik_user"),
-        "password": config("DB_PASSWORD", default="ik_password"),
+        "PASSWORD": config("DB_PASSWORD", default="ik_password"),
         "HOST": config("DB_HOST", default="localhost"),
         "PORT": config("DB_PORT", default="5432"),
     }
@@ -222,3 +222,21 @@ SHELL_PLUS_IMPORTS = [
     "from apps.flow.tasks import MonthlyActivityReportPdf",
     "from apps.flow.tasks import WeeklyActivityReportPdf",
 ]
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "json": {
+            "()": "django.utils.log.ServerFormatter",
+            "format": '{"level": "%(levelname)s", "logger": "%(name)s", "message": "%(message)s", "asctime": "%(asctime)s"}',
+        },
+    },
+    "handlers": {
+        "elk": {"level": "INFO", "class": "libs.logging.handlers.JsonTCPLogHandler", "formatter": "json"},
+    },
+    "root": {
+        "handlers": ["elk"],
+        "level": "INFO",
+    },
+}

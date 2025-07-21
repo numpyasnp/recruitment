@@ -4,9 +4,12 @@ from django.utils import timezone
 from django.contrib.auth import logout
 from rest_framework.response import Response
 from rest_framework.views import APIView
+import logging
 
 from apps.api.v1.auth.serializers import LoginSerializer
 from apps.hr_user.errors.errors import AccountDoesNotExist
+
+logger = logging.getLogger(__name__)
 
 
 class HRSessionLoginView(APIView):
@@ -25,6 +28,16 @@ class HRSessionLoginView(APIView):
         login(request, user)
         self.update_last_login(user)
 
+        logger.info(
+            "Session login successful",
+            extra={
+                "ip": request.META.get("REMOTE_ADDR"),
+                "user_agent": request.META.get("HTTP_USER_AGENT"),
+                "email": email,
+                "user_id": user.id,
+            },
+        )
+
         return Response({"message": "Login successful"}, status=200)
 
     def update_last_login(self, user):
@@ -35,4 +48,12 @@ class HRSessionLoginView(APIView):
 class HRSessionLogoutView(APIView):
     def post(self, request):
         logout(request)
+        logger.info(
+            "Session logout successful",
+            extra={
+                "ip": request.META.get("REMOTE_ADDR"),
+                "user_agent": request.META.get("HTTP_USER_AGENT"),
+                "user_id": request.user.id,
+            },
+        )
         return Response({"message": "Logout successful"}, status=200)
