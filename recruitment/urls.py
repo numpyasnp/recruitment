@@ -11,4 +11,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("health/", health_check, name="health_check"),
     path("api/v1/", include("apps.api.v1.urls")),
+    path("rosetta/", include("rosetta.urls")),
 ]

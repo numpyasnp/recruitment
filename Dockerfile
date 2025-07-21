@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y \
     texlive-publishers \
     texlive-science \
     texlive-lang-european \
+    gettext \
     && rm -rf /var/lib/apt/lists/*
 
 # Python bağımlılıklarını kopyala ve yükle

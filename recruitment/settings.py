@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from datetime import timedelta
 from pathlib import Path
 from decouple import config, Csv
@@ -52,6 +53,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "django_extensions",
     "django_celery_beat",
+    "rosetta",
 ]
 
 MIDDLEWARE = [
@@ -65,6 +67,14 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "recruitment.urls"
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, "locale"),
+]
+
+ROSETTA_SHOW_AT_ADMIN_PANEL = True  # Admin panelinde link gösterir
+ROSETTA_REQUIRES_AUTH = True  # Sadece giriş yapanlar erişir (varsayılan: True)
+ROSETTA_ENABLE_TRANSLATION_SUGGESTIONS = False  # Google Translate API ile öneri almak için True yapabilirsin
 
 TEMPLATES = [
     {
@@ -92,7 +102,7 @@ DATABASES = {
         "ENGINE": config("DB_ENGINE", default="django.db.backends.postgresql"),
         "NAME": config("DB_NAME", default="ik_recruitment"),
         "USER": config("DB_USER", default="ik_user"),
-        "PASSWORD": config("DB_PASSWORD", default="ik_password"),
+        "password": config("DB_PASSWORD", default="ik_password"),
         "HOST": config("DB_HOST", default="localhost"),
         "PORT": config("DB_PORT", default="5432"),
     }
@@ -123,7 +133,12 @@ AUTH_USER_MODEL = "hr_user.HRUser"
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "tr"
+LANGUAGES = [
+    ("tr", "Turkish"),
+    ("en", "English"),
+]
+
 
 TIME_ZONE = "UTC"
 
@@ -198,7 +213,7 @@ CACHES = {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
         "LOCATION": f"redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB}",
         "OPTIONS": {
-            "PASSWORD": REDIS_PASSWORD,
+            "password": REDIS_PASSWORD,
         },
     }
 }
