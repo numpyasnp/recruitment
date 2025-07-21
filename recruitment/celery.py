@@ -27,7 +27,9 @@ app.conf.update(
     task_time_limit=30 * 60,  # 30 min
     task_soft_time_limit=25 * 60,  # 25 min
     worker_prefetch_multiplier=1,
-    worker_max_tasks_per_child=1000,
+    worker_max_tasks_per_child=100,
+    worker_concurrency=2,
+    worker_max_memory_per_child=150_000,
     beat_schedule=CELERYBEAT_SCHEDULE,
 )
 
