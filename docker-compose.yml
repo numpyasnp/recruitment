@@ -91,6 +91,11 @@ services:
         condition: service_healthy
       web:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "celery", "-A", "recruitment", "inspect", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   # Celery Beat (Scheduler)
   celery_beat:
@@ -118,6 +123,11 @@ services:
         condition: service_healthy
       web:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "celery", "-A", "recruitment", "beat", "--loglevel=info", "--detach"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   # Flower (Celery Monitoring)
   flower:
@@ -147,6 +157,11 @@ services:
         condition: service_healthy
       web:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5555/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 volumes:
   postgres_data:

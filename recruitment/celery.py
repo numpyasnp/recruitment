@@ -1,6 +1,7 @@
 import os
 from celery import Celery
 from decouple import config
+from django.conf import settings
 
 from recruitment.celery_schedules import CELERYBEAT_SCHEDULE
 
@@ -30,4 +31,4 @@ app.conf.update(
     beat_schedule=CELERYBEAT_SCHEDULE,
 )
 
-app.autodiscover_tasks()
+app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)

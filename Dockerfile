@@ -9,6 +9,14 @@ RUN apt-get update && apt-get install -y \
     gcc \
     postgresql-client \
     curl \
+    texlive-latex-base \
+    texlive-latex-extra \
+    texlive-fonts-recommended \
+    texlive-fonts-extra \
+    texlive-latex-recommended \
+    texlive-publishers \
+    texlive-science \
+    texlive-lang-european \
     && rm -rf /var/lib/apt/lists/*
 
 # Python bağımlılıklarını kopyala ve yükle

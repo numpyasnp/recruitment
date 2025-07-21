@@ -6,7 +6,6 @@ from recruitment.celery import app
 from apps.job_posting.models import JobPosting
 
 
-@app.task
 class DeactivateExpiredJobPostings(celery.Task):
     """
     Kapanış tarihi geçmiş iş ilanlarını otomatik olarak pasif statüsüne çeker.

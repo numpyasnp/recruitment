@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models import QuerySet
+from django.utils import timezone
 
 from libs.abstract.models import TimeStampedModel
 
@@ -49,6 +51,14 @@ class Activity(TimeStampedModel):
         db_table = "activity"
 
 
+class CandidateActivityLogQuerySet(QuerySet):
+    def yearly_activity_log(self):
+        now = timezone.now()
+        year_start = timezone.datetime(now.year, 1, 1, tzinfo=now.tzinfo)
+        year_end = timezone.datetime(now.year, 12, 31, tzinfo=now.tzinfo)
+        return self.filter(date_created__gte=year_start, date_created__lte=year_end)
+
+
 class CandidateActivityLog(TimeStampedModel):
     candidate_flow = models.ForeignKey(CandidateFlow, on_delete=models.CASCADE, related_name="candidate_activities_log")
     activity = models.ForeignKey(Activity, on_delete=models.PROTECT, related_name="candidate_activities_log")
@@ -57,6 +67,8 @@ class CandidateActivityLog(TimeStampedModel):
         "hr_user.HRUser", on_delete=models.SET_NULL, null=True, related_name="candidate_activities_log"
     )
     note = models.TextField(blank=True, null=True)
+
+    objects = CandidateActivityLogQuerySet.as_manager()
 
     class Meta:
         verbose_name = "Candidate Activity Log"

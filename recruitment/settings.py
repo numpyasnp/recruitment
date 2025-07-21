@@ -202,3 +202,8 @@ CACHES = {
         },
     }
 }
+
+SHELL_PLUS_IMPORTS = [
+    "from apps.flow.tasks import MonthlyActivityReportPdf",
+    "from apps.flow.tasks import WeeklyActivityReportPdf",
+]

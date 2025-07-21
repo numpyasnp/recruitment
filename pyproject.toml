@@ -21,4 +21,6 @@ dependencies = [
     "django-celery-beat>=2.5.0",
     "flower>=2.0.0",
     "faker>=37.4.2",
+    "pylatex>=1.4.2",
+    "pdflatex>=0.1.3",
 ]
