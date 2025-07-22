@@ -1,27 +1,37 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from libs import customfields
 from libs.abstract.models import TimeStampedModel, PeriodMixin
 
 
 class Candidate(TimeStampedModel):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, verbose_name=_("name and surname"), db_index=True)
     email = customfields.EmailField(unique=True)
-    phone = models.CharField(max_length=20, blank=True)
+    phone = models.CharField(max_length=20, unique=True)
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.name}"
 
     class Meta:
         verbose_name = "Candidate"
         verbose_name_plural = "Candidates"
         db_table = "candidate"
 
+    @property
+    def first_name(self):
+        first_name, last_name = split_name(self.name)
+        return first_name
+
+    @property
+    def last_name(self):
+        first_name, last_name = split_name(self.name)
+        return last_name
+
 
 class Education(TimeStampedModel, PeriodMixin):
     candidate = models.ForeignKey("Candidate", on_delete=models.CASCADE, related_name="educations")
-    school = models.CharField(max_length=255)
+    school = models.CharField(max_length=255, db_index=True)
     department = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
@@ -35,7 +45,7 @@ class Education(TimeStampedModel, PeriodMixin):
 
 class WorkExperience(TimeStampedModel, PeriodMixin):
     candidate = models.ForeignKey("Candidate", on_delete=models.CASCADE, related_name="work_experiences")
-    company = models.CharField(max_length=255)
+    company = models.CharField(max_length=255, db_index=True)
     position = models.CharField(max_length=255)
     tech_stack = models.TextField(
         blank=True, help_text="List of the technologies stack, separated by comma e.g Python, Django, PostgreSQL"

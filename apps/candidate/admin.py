@@ -5,7 +5,7 @@ from .models import Candidate, Education, WorkExperience
 
 @admin.register(Candidate)
 class CandidateAdmin(admin.ModelAdmin):
-    list_display = ["id", "first_name", "last_name", "email", "phone"]
+    list_display = ["id", "name", "email", "phone"]
 
 
 @admin.register(Education)
