@@ -97,6 +97,7 @@ WSGI_APPLICATION = "recruitment.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# todo: add pgbouncer for optimization
 DATABASES = {
     "default": {
         "ENGINE": config("DB_ENGINE", default="django.db.backends.postgresql"),
