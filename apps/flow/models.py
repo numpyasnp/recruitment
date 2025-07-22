@@ -61,7 +61,6 @@ class CandidateActivityLogQuerySet(QuerySet):
 class CandidateActivityLog(TimeStampedModel):
     candidate_flow = models.ForeignKey(CandidateFlow, on_delete=models.CASCADE, related_name="candidate_activities_log")
     activity = models.ForeignKey(Activity, on_delete=models.PROTECT, related_name="candidate_activities_log")
-    status = models.ForeignKey(Status, on_delete=models.PROTECT, related_name="candidate_activities_log")
     created_by = models.ForeignKey(
         "hr_user.HRUser", on_delete=models.SET_NULL, null=True, related_name="candidate_activities_log"
     )
