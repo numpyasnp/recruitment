@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from libs import customfields
 from libs.abstract.models import TimeStampedModel, PeriodMixin
+from libs.utils.general import split_name
 
 
 class Candidate(TimeStampedModel):
