@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.db import transaction
 from django.utils import timezone
 from django.contrib.auth import logout
+from django.utils.translation import gettext_lazy as _
 from rest_framework.response import Response
 from rest_framework.views import APIView
 import logging
@@ -38,7 +39,7 @@ class HRSessionLoginView(APIView):
             },
         )
 
-        return Response({"message": "Login successful"}, status=200)
+        return Response({"message": _("Login successful")}, status=200)
 
     def update_last_login(self, user):
         user.last_login = timezone.now()
@@ -56,4 +57,4 @@ class HRSessionLogoutView(APIView):
                 "user_id": request.user.id,
             },
         )
-        return Response({"message": "Logout successful"}, status=200)
+        return Response({"message": _("Logout successful")}, status=200)

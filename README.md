@@ -206,6 +206,56 @@ Each app contains a `docs/readme.md` file with detailed explanations.
 
 ---
 
+## Internationalization (i18n) & Translations
+
+This project supports multi-language (i18n) using Django's translation framework and Rosetta.
+
+### How to Add or Update Translations
+
+1. **Mark Strings for Translation in Code**
+   - Use `gettext_lazy` (or `gettext`) for all user-facing strings in your Python code:
+     ```python
+     from django.utils.translation import gettext_lazy as _
+     message = _("The job posting has been activated.")
+     ```
+   - In Django templates, use the `{% trans %}` or `{% blocktrans %}` tags:
+     ```django
+     {% trans "Welcome" %}
+     ```
+
+2. **Extract Messages (.po file generation)**
+   - Run the following command inside your Docker container to extract all marked strings:
+     ```bash
+     docker compose exec web python manage.py makemessages -l tr
+     ```
+   - This will create or update the `.po` file for Turkish under `locale/tr/LC_MESSAGES/django.po`.
+
+3. **Translate Strings Using Rosetta**
+   - Start your containers and visit [http://localhost:8000/rosetta/](http://localhost:8000/rosetta/).
+   - Log in as an admin user.
+   - In the top-right, select the language (e.g., Turkish) and click on the translation block you want to edit.
+   - Enter translations for any untranslated strings, save, and click "Translate next block" to continue.
+
+4. **Compile Translations (.mo file generation)**
+   - After saving translations in Rosetta, the `.mo` file will be generated automatically.
+   - Alternatively, you can run:
+     ```bash
+     docker compose exec web python manage.py compilemessages
+     ```
+   - The compiled `.mo` file is what Django uses at runtime.
+
+5. **See Your Translations in Action**
+   - Make sure your browser or user profile is set to the target language (e.g., Turkish).
+   - All marked strings will now appear in the selected language if a translation exists.
+
+### Best Practices
+- Always use `gettext_lazy` for any string that will be shown to users.
+- Keep your `.po` files up to date by running `makemessages` after adding new strings.
+- Use Rosetta for a user-friendly translation workflow.
+- Never edit `.mo` files directly; always edit `.po` files and recompile.
+
+---
+
 ## Developer Notes
 
 - All configuration is managed via `.env` or `docker-compose.yml` environment variables.

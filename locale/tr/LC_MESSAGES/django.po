@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-22 11:47+0000\n"
-"PO-Revision-Date: 2025-07-22 11:48+0000\n"
+"POT-Creation-Date: 2025-07-22 11:54+0000\n"
+"PO-Revision-Date: 2025-07-22 11:55+0000\n"
 "Last-Translator: Anonymous m <mirsis@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,6 +18,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.10.2\n"
+
+#: apps/api/v1/auth/views.py:42
+msgid "Login successful"
+msgstr "Giriş başarıyla yapıldı."
+
+#: apps/api/v1/auth/views.py:60
+msgid "Logout successful"
+msgstr "Çıkış başarıyla yapıldı."
 
 #: apps/api/v1/job_posting/views.py:39
 msgid "The job posting has been activated."
