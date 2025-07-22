@@ -21,5 +21,5 @@ class ActivityAdmin(admin.ModelAdmin):
 
 @admin.register(CandidateActivityLog)
 class CandidateActivityLogAdmin(admin.ModelAdmin):
-    list_select_related = ("candidate_flow", "activity", "created_by")
-    list_display = ["id", "candidate_flow", "activity", "created_by", "note"]
+    list_select_related = ("candidate_flow", "activity")
+    list_display = ["id", "candidate_flow", "activity", "note", "date_created"]
