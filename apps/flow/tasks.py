@@ -8,7 +8,7 @@ from pylatex import Document, Section, Table, Tabular, NoEscape
 from django.conf import settings
 
 from apps.flow.models import CandidateActivityLog, Activity
-from recruitment.celery import app
+from recruitment.celery_app import app
 
 
 def latex_escape(text):

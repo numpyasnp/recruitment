@@ -1,11 +1,11 @@
-from api.permissions.base_permission import BasePermissionChecker
-from api.permissions.permissions import (
+from apps.api.permissions.base_permission import BasePermissionChecker
+from apps.api.permissions.permissions import (
     JobPostingPermissionChecker,
     DefaultPermissionChecker,
     CandidateFlowPermissionChecker,
 )
-from flow.models import CandidateFlow
-from job_posting.models import JobPosting
+from apps.flow.models import CandidateFlow
+from apps.job_posting.models import JobPosting
 
 
 class PermissionFactory:
