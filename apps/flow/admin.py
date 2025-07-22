@@ -22,4 +22,12 @@ class ActivityAdmin(admin.ModelAdmin):
 @admin.register(CandidateActivityLog)
 class CandidateActivityLogAdmin(admin.ModelAdmin):
     list_select_related = ("candidate_flow", "activity")
-    list_display = ["id", "candidate_flow", "activity", "note", "date_created"]
+    list_display = ["id", "candidate_flow", "get_hr_user", "get_client_company", "activity", "note", "date_created"]
+
+    @admin.display(description="client company")
+    def get_client_company(self, obj):
+        return obj.candidate_flow.job_posting.client_company
+
+    @admin.display(description="hr user")
+    def get_hr_user(self, obj):
+        return obj.candidate_flow.hr_user
