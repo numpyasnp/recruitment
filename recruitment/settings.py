@@ -170,6 +170,8 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.AllowAny",
     ],
     "EXCEPTION_HANDLER": "recruitment.exceptions.custom_exception_handler",
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
 }
 
 SIMPLE_JWT = {

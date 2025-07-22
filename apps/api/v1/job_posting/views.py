@@ -1,16 +1,20 @@
 from rest_framework import viewsets, status
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import action
+
+from django.utils.translation import gettext_lazy as _
+
 
 from apps.job_posting.models import JobPosting
 from .serializers import JobPostingCreateSerializer, JobPostingUpdateSerializer, JobPostingListSerializer
 from apps.api.permissions.permissions import FlexibleHRUserPermission
+from apps.api.v1.paginators import JobPostingPaginator
 
 
 class JobPostingViewSet(viewsets.ModelViewSet):
     queryset = JobPosting.objects.select_related("hr_company", "client_company").all()
-    permission_classes = (FlexibleHRUserPermission, IsAuthenticated)
+    permission_classes = (FlexibleHRUserPermission,)
+    pagination_class = JobPostingPaginator
 
     def get_serializer_class(self):
         if self.action == "create":
@@ -32,11 +36,11 @@ class JobPostingViewSet(viewsets.ModelViewSet):
         job_posting = self.get_object()
         job_posting.is_active = True
         job_posting.save(update_fields=["is_active"])
-        return Response({"message": "İş ilanı aktif hale getirildi"}, status=status.HTTP_200_OK)
+        return Response({"message": _("The job posting has been activated.")}, status=status.HTTP_200_OK)
 
     @action(detail=True, methods=["post"])
     def deactivate(self, request, pk=None):
         job_posting = self.get_object()
         job_posting.is_active = False
         job_posting.save(update_fields=["is_active"])
-        return Response({"message": "İş ilanı pasif hale getirildi"}, status=status.HTTP_200_OK)
+        return Response({"message": _("The job posting has been deactivated.")}, status=status.HTTP_200_OK)
