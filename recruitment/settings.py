@@ -101,9 +101,9 @@ WSGI_APPLICATION = "recruitment.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": config("DB_ENGINE", default="django.db.backends.postgresql"),
-        "NAME": config("DB_NAME", default="ik_recruitment"),
-        "USER": config("DB_USER", default="ik_user"),
-        "PASSWORD": config("DB_PASSWORD", default="ik_password"),
+        "NAME": config("DB_NAME", default="recruitment"),
+        "USER": config("DB_USER", default="hr_user"),
+        "PASSWORD": config("DB_PASSWORD", default="password"),
         "HOST": config("DB_HOST", default="localhost"),
         "PORT": config("DB_PORT", default="5432"),
     }

@@ -71,11 +71,11 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS(f"{len(job_postings)} adet İş İlanı oluşturuldu."))
         return job_postings
 
-    def _create_candidates(self, count: int, fake: Faker):
+    def _create_candidates(self, count: int, fake: Faker, hr_users: List[HRUser]):
         candidates = [
             Candidate(
-                first_name=fake.first_name(),
-                last_name=fake.last_name(),
+                recruiter=random.choice(hr_users),
+                name=fake.first_name(),
                 email=fake.unique.email(),
                 phone=fake.phone_number()[:20],
             )
@@ -137,7 +137,7 @@ class Command(BaseCommand):
         # 4. job post
         job_postings = self._create_job_posting(JOB_POSTING_COUNT, fake, hr_users, client_companies)
         # 5. candidate
-        candidates = self._create_candidates(CANDIDATE_COUNT, fake)
+        candidates = self._create_candidates(CANDIDATE_COUNT, fake, hr_users)
         # 6. Education
         educations = self._create_educations(fake, candidates)
         # 7. WorkExperience

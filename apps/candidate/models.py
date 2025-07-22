@@ -7,6 +7,7 @@ from libs.utils.general import split_name
 
 
 class Candidate(TimeStampedModel):
+    recruiter = models.ForeignKey("hr_user.HRUser", on_delete=models.DO_NOTHING, related_name="candidates")
     name = models.CharField(max_length=100, verbose_name=_("name and surname"), db_index=True)
     email = customfields.EmailField(unique=True)
     phone = models.CharField(max_length=20, unique=True)

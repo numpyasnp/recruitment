@@ -37,10 +37,10 @@ class DefaultPermissionChecker(BasePermissionChecker):
 
 
 class FlexibleHRUserPermission(BasePermission):
-    def has_permission(self, request, view):
+    def has_permission(self, request, view) -> bool:
         return bool(request.user and request.user.is_authenticated) and hasattr(request.user, "hr_company")
 
-    def has_object_permission(self, request, view, obj):
+    def has_object_permission(self, request, view, obj) -> bool:
         from apps.api.permissions.permission_factory import PermissionFactory
 
         return PermissionFactory.can_manage(request.user, obj)

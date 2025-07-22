@@ -19,7 +19,7 @@ class PermissionFactory:
             return DefaultPermissionChecker()
 
     @staticmethod
-    def can_manage(user, obj):
+    def can_manage(user, obj) -> bool:
         """Check if the user can manage the object."""
         checker = PermissionFactory.get_permission_checker(obj)
         return checker.can_manage(user, obj)
