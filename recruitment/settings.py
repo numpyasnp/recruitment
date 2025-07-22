@@ -242,4 +242,11 @@ LOGGING = {
         "handlers": ["elk"],
         "level": "INFO",
     },
+    "loggers": {
+        "api_info": {
+            "handlers": ["elk"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
 }

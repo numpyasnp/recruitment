@@ -133,6 +133,7 @@ services:
       retries: 3
     networks:
       - ik_net
+    restart: always
 
   flower:
     build: .
@@ -175,10 +176,12 @@ services:
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
     ports:
       - "9200:9200"
     networks:
       - ik_net
+    restart: always
 
   logstash:
     image: docker.elastic.co/logstash/logstash:8.13.2

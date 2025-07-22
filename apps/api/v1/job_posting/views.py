@@ -9,6 +9,7 @@ from apps.job_posting.models import JobPosting
 from .serializers import JobPostingCreateSerializer, JobPostingUpdateSerializer, JobPostingListSerializer
 from apps.api.permissions.permissions import FlexibleHRUserPermission
 from apps.api.v1.paginators import JobPostingPaginator
+from apps.api.v1.utils import log_api_info
 
 
 class JobPostingViewSet(viewsets.ModelViewSet):
@@ -31,8 +32,25 @@ class JobPostingViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(hr_user=self.request.user)
 
+    def create(self, request, *args, **kwargs):
+        log_api_info(request, self.__class__.__name__, "create")
+        return super().create(request, *args, **kwargs)
+
+    def update(self, request, *args, **kwargs):
+        log_api_info(request, self.__class__.__name__, "update")
+        return super().update(request, *args, **kwargs)
+
+    def partial_update(self, request, *args, **kwargs):
+        log_api_info(request, self.__class__.__name__, "partial_update")
+        return super().partial_update(request, *args, **kwargs)
+
+    def destroy(self, request, *args, **kwargs):
+        log_api_info(request, self.__class__.__name__, "destroy")
+        return super().destroy(request, *args, **kwargs)
+
     @action(detail=True, methods=["post"])
     def activate(self, request, pk=None):
+        log_api_info(request, self.__class__.__name__, "activate")
         job_posting = self.get_object()
         job_posting.is_active = True
         job_posting.save(update_fields=["is_active"])
@@ -40,6 +58,7 @@ class JobPostingViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"])
     def deactivate(self, request, pk=None):
+        log_api_info(request, self.__class__.__name__, "deactivate")
         job_posting = self.get_object()
         job_posting.is_active = False
         job_posting.save(update_fields=["is_active"])

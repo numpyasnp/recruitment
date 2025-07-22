@@ -12,6 +12,7 @@ from .serializers import (
     EducationSerializer,
     WorkExperienceSerializer,
 )
+from apps.api.v1.utils import log_api_info
 
 
 class CandidateViewSet(viewsets.ModelViewSet):
@@ -44,8 +45,25 @@ class CandidateViewSet(viewsets.ModelViewSet):
 
         return queryset
 
+    def create(self, request, *args, **kwargs):
+        log_api_info(request, self.__class__.__name__, "create")
+        return super().create(request, *args, **kwargs)
+
+    def update(self, request, *args, **kwargs):
+        log_api_info(request, self.__class__.__name__, "update")
+        return super().update(request, *args, **kwargs)
+
+    def partial_update(self, request, *args, **kwargs):
+        log_api_info(request, self.__class__.__name__, "partial_update")
+        return super().partial_update(request, *args, **kwargs)
+
+    def destroy(self, request, *args, **kwargs):
+        log_api_info(request, self.__class__.__name__, "destroy")
+        return super().destroy(request, *args, **kwargs)
+
     @action(detail=True, methods=["get", "post"])
     def educations(self, request, pk=None):
+        log_api_info(request, self.__class__.__name__, "educations")
         """Adayın eğitim bilgilerini yönet"""
         candidate = self.get_object()
         if request.method == "GET":
@@ -62,6 +80,7 @@ class CandidateViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["get", "post"])
     def work_experiences(self, request, pk=None):
+        log_api_info(request, self.__class__.__name__, "work_experiences")
         """Adayın iş deneyimi bilgilerini yönet"""
         candidate = self.get_object()
 
@@ -94,6 +113,30 @@ class EducationViewSet(viewsets.ModelViewSet):
 
         return queryset
 
+    def list(self, request, *args, **kwargs):
+        log_api_info(request, self.__class__.__name__, "list")
+        return super().list(request, *args, **kwargs)
+
+    def retrieve(self, request, *args, **kwargs):
+        log_api_info(request, self.__class__.__name__, "retrieve")
+        return super().retrieve(request, *args, **kwargs)
+
+    def create(self, request, *args, **kwargs):
+        log_api_info(request, self.__class__.__name__, "create")
+        return super().create(request, *args, **kwargs)
+
+    def update(self, request, *args, **kwargs):
+        log_api_info(request, self.__class__.__name__, "update")
+        return super().update(request, *args, **kwargs)
+
+    def partial_update(self, request, *args, **kwargs):
+        log_api_info(request, self.__class__.__name__, "partial_update")
+        return super().partial_update(request, *args, **kwargs)
+
+    def destroy(self, request, *args, **kwargs):
+        log_api_info(request, self.__class__.__name__, "destroy")
+        return super().destroy(request, *args, **kwargs)
+
 
 class WorkExperienceViewSet(viewsets.ModelViewSet):
     queryset = WorkExperience.objects.all()
@@ -108,3 +151,27 @@ class WorkExperienceViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(candidate_id=candidate_id)
 
         return queryset
+
+    def list(self, request, *args, **kwargs):
+        log_api_info(request, self.__class__.__name__, "list")
+        return super().list(request, *args, **kwargs)
+
+    def retrieve(self, request, *args, **kwargs):
+        log_api_info(request, self.__class__.__name__, "retrieve")
+        return super().retrieve(request, *args, **kwargs)
+
+    def create(self, request, *args, **kwargs):
+        log_api_info(request, self.__class__.__name__, "create")
+        return super().create(request, *args, **kwargs)
+
+    def update(self, request, *args, **kwargs):
+        log_api_info(request, self.__class__.__name__, "update")
+        return super().update(request, *args, **kwargs)
+
+    def partial_update(self, request, *args, **kwargs):
+        log_api_info(request, self.__class__.__name__, "partial_update")
+        return super().partial_update(request, *args, **kwargs)
+
+    def destroy(self, request, *args, **kwargs):
+        log_api_info(request, self.__class__.__name__, "destroy")
+        return super().destroy(request, *args, **kwargs)
