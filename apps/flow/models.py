@@ -52,11 +52,10 @@ class Activity(TimeStampedModel):
 
 
 class CandidateActivityLogQuerySet(QuerySet):
-    def yearly_activity_log(self):
+    def from_year_start(self):
         now = timezone.now()
         year_start = timezone.datetime(now.year, 1, 1, tzinfo=now.tzinfo)
-        year_end = timezone.datetime(now.year, 12, 31, tzinfo=now.tzinfo)
-        return self.filter(date_created__gte=year_start, date_created__lte=year_end)
+        return self.filter(date_created__gte=year_start)
 
 
 class CandidateActivityLog(TimeStampedModel):

@@ -45,7 +45,7 @@ class WeeklyActivityReportPdf(celery.Task):
             # todo: add early return if latex path does not exists
             # todo: add generic path like which pdflatex
             latex_compiler_path = " /usr/bin/pdflatex"
-            logs = CandidateActivityLog.objects.select_related("activity").yearly_activity_log()
+            logs = CandidateActivityLog.objects.select_related("activity").from_year_start()
 
             activity_types = list(Activity.objects.values_list("name", flat=True))
 
@@ -99,7 +99,7 @@ class MonthlyActivityReportPdf(celery.Task):
             # todo: add early return if latex path does not exists
             # todo: add generic path like which pdflatex
             latex_compiler_path = " /usr/bin/pdflatex"
-            logs = CandidateActivityLog.objects.select_related("activity").yearly_activity_log()
+            logs = CandidateActivityLog.objects.select_related("activity").from_year_start()
             activity_types = list(Activity.objects.values_list("name", flat=True))
             # Aylık bazda gruplama
             monthly_counts = defaultdict(lambda: {atype: 0 for atype in activity_types})
