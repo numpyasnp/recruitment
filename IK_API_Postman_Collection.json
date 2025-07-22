@@ -1125,6 +1125,31 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Candidate Flows",
+			"item": [
+				{
+					"name": "Create Candidate Flow",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{access_token}}" },
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"job_posting\": 1,\n    \"candidate\": 2,\n    \"status\": 3\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/candidate-flows/",
+							"host": [ "{{base_url}}" ],
+							"path": [ "api", "v1", "candidate-flows", "" ]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [

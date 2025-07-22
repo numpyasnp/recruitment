@@ -237,9 +237,10 @@ LOGGING = {
     },
     "handlers": {
         "elk": {"level": "INFO", "class": "libs.logging.handlers.JsonTCPLogHandler", "formatter": "json"},
+        "console": {"level": "INFO", "class": "logging.StreamHandler", "formatter": "json"},
     },
     "root": {
-        "handlers": ["elk"],
+        "handlers": ["console"],
         "level": "INFO",
     },
     "loggers": {
