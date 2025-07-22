@@ -249,5 +249,10 @@ LOGGING = {
             "level": "INFO",
             "propagate": False,
         },
+        "apps.api.v1.auth.views": {
+            "handlers": ["elk"],
+            "level": "INFO",
+            "propagate": False,
+        },
     },
 }

@@ -67,6 +67,7 @@ services:
       retries: 3
     networks:
       - ik_net
+    restart: always
 
   celery_worker:
     build: .
