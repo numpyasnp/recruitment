@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models import QuerySet
 from django.utils import timezone
+
+from apps.hr_user.models import HRUser
 from libs.abstract.models import TimeStampedModel
 
 
@@ -17,6 +19,12 @@ class Status(TimeStampedModel):
         db_table = "status"
 
 
+class CandidateFlowQuerySet(QuerySet):
+
+    def managed_by_user(self, user: HRUser):
+        return self.filter(job_posting__hr_user=user)
+
+
 class CandidateFlow(TimeStampedModel):
     job_posting = models.ForeignKey("job_posting.JobPosting", on_delete=models.CASCADE, related_name="candidate_flows")
     candidate = models.ForeignKey("candidate.Candidate", on_delete=models.CASCADE, related_name="candidate_flows")
@@ -26,6 +34,8 @@ class CandidateFlow(TimeStampedModel):
     status = models.ForeignKey(
         "Status", on_delete=models.SET_NULL, null=True, blank=True, related_name="candidate_flows"
     )
+
+    objects = CandidateFlowQuerySet.as_manager()
 
     def __str__(self):
         return f"{self.candidate} - {self.job_posting}"

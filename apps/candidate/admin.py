@@ -5,7 +5,10 @@ from .models import Candidate, Education, WorkExperience
 
 @admin.register(Candidate)
 class CandidateAdmin(admin.ModelAdmin):
-    list_display = ["id", "name", "email", "phone"]
+    list_display = ["id", "recruiter", "name", "email", "phone"]
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related("recruiter")
 
 
 @admin.register(Education)

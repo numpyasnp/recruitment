@@ -38,7 +38,7 @@ class JobPosting(TimeStampedModel):
         db_table = "job_posting"
 
     def __str__(self):
-        return f"{self.title} ({self.client_company.name})"
+        return f"{self.hr_user } - {self.title} ({self.client_company.name})"
 
     @property
     def is_hr_user_company_matched(self):

@@ -1,5 +1,8 @@
 from django.contrib import admin
 
+from apps.job_posting.models import JobPosting
+from apps.candidate.models import Candidate
+from apps.hr_user.models import HRUser
 from .models import CandidateFlow, Status, Activity, CandidateActivityLog
 
 
@@ -7,6 +10,19 @@ from .models import CandidateFlow, Status, Activity, CandidateActivityLog
 class CandidateFlowAdmin(admin.ModelAdmin):
     list_select_related = ("job_posting", "candidate", "hr_user", "status")
     list_display = ["id", "job_posting", "candidate", "hr_user", "status"]
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        return queryset.managed_by_user(request.user)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "job_posting":
+            kwargs["queryset"] = JobPosting.objects.filter(hr_user=request.user)
+        if db_field.name == "candidate":
+            kwargs["queryset"] = Candidate.objects.filter(recruiter=request.user)
+        if db_field.name == "hr_user":
+            kwargs["queryset"] = HRUser.objects.filter(id=request.user.id)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 @admin.register(Status)

@@ -1,4 +1,5 @@
 from rest_framework import viewsets, status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
@@ -17,7 +18,7 @@ from apps.api.v1.utils import log_api_info
 
 class CandidateViewSet(viewsets.ModelViewSet):
     queryset = Candidate.objects.prefetch_related("educations", "work_experiences").all()
-    permission_classes = (FlexibleHRUserPermission,)
+    permission_classes = (IsAuthenticated,)
 
     def get_serializer_class(self):
         if self.action == "create":
