@@ -44,7 +44,7 @@ class WeeklyActivityReportPdf(celery.Task):
             now = timezone.now()
             # todo: add early return if latex path does not exists
             # todo: add generic path like which pdflatex
-            latex_compiler_path = " /usr/bin/pdflatex"
+            latex_compiler_path = "/usr/bin/pdflatex"
             logs = CandidateActivityLog.objects.select_related("activity").from_year_start()
 
             activity_types = list(Activity.objects.values_list("name", flat=True))
@@ -98,7 +98,7 @@ class MonthlyActivityReportPdf(celery.Task):
             now = timezone.now()
             # todo: add early return if latex path does not exists
             # todo: add generic path like which pdflatex
-            latex_compiler_path = " /usr/bin/pdflatex"
+            latex_compiler_path = "/usr/bin/pdflatex"
             logs = CandidateActivityLog.objects.select_related("activity").from_year_start()
             activity_types = list(Activity.objects.values_list("name", flat=True))
             # Aylık bazda gruplama
