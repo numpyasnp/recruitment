@@ -18,7 +18,7 @@ class BaseHRQuerySet(QuerySet):
         user.save()
         return user
 
-    def create_superuser(self, email: str, password: str, name: str, last_name: str):
+    def create_superuser(self, email: str, password: str, name: str = "", last_name: str = ""):
         user = self.create_user(email, password=password, name=name, last_name=last_name)
         user.is_superuser = True
         user.save()
