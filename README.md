@@ -256,15 +256,6 @@ This project supports multi-language (i18n) using Django's translation framework
 
 ---
 
-## Developer Notes
-
-- All configuration is managed via `.env` or `docker-compose.yml` environment variables.
-- Run migrations and collect static files manually if needed.
-- For each module, see `apps/<module>/docs/readme.md`.
-- For authentication and JWT details, see `AUTHENTICATION_README.md`.
-
----
-
 ## Running Tests
 
 ### From the Command Line
@@ -294,10 +285,46 @@ pytest
 
 ---
 
+If you encounter any issues, check the logs or inspect service status with `docker compose ps`.
+
+---
+
+## Viewing Django Logs in Kibana
+
+To analyze your Django logs in Kibana, follow these steps:
+
+### 1. Create an Index for Django Logs
+- Go to the **Kibana Home Page**.
+- Navigate to **Stack Management**.
+- In the left sidebar, under **Data**, select **Index Management**.
+- Click **Create Index**.
+- Enter `django-logs-` as the index name.
+- Complete the creation process.
+
+### 2. Create a Data View
+- In the left sidebar, go to **Discover**.
+- Click **Create Data View** (usually at the top of the Discover page).
+- For the **Index pattern**, enter: `django-logs-*`
+- For **Name**, you can enter any name you prefer (e.g., "Django Logs").
+- Click **Save to Kibana** to finish.
+
+### 3. Explore Your Logs
+- After saving, you will be redirected to the Discover page.
+- You can now browse, filter, and analyze your Django logs in real time using the data view you just created.
+
+---
+
+## Developer Notes
+
+- All configuration is managed via `.env` or `docker-compose.yml` environment variables.
+- Run migrations and collect static files manually if needed.
+- For each module, see `apps/<module>/docs/readme.md`.
+- For authentication and JWT details, see `AUTHENTICATION_README.md`.
+
+---
+
 ## License
 
 This project is licensed under the MIT License.
 
 ---
-
-If you encounter any issues, check the logs or inspect service status with `docker compose ps`.
