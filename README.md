@@ -265,6 +265,35 @@ This project supports multi-language (i18n) using Django's translation framework
 
 ---
 
+## Running Tests
+
+### From the Command Line
+
+You can run all tests with:
+
+```bash
+python manage.py test
+```
+
+To run tests for a specific app or file:
+
+```bash
+python manage.py test apps.tests.test_job_posting
+```
+
+### With pytest (optional)
+If you have pytest and pytest-django installed:
+
+```bash
+pytest
+```
+
+### Debugging with PyCharm
+- In PyCharm, right-click the test file or function and select "Run/Debug 'Django tests in ...'".
+- Make sure to use the "Django tests" configuration so tests run in the correct Django environment.
+
+---
+
 ## License
 
 This project is licensed under the MIT License.
