@@ -10,6 +10,9 @@ class JobPostingQuerySet(QuerySet):
     def active(self):
         return self.filter(is_active=True)
 
+    def passive(self):
+        return self.filter(is_active=False)
+
     def can_manage_job_post_by(self, user: HRUser):
         client_company_ids = user.client_companies.values_list("id", flat=True)
         return self.filter(hr_company=user.hr_company, client_company__id__in=[client_company_ids])

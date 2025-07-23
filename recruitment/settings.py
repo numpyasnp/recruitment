@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 import os
+import sys
 from datetime import timedelta
 from pathlib import Path
 from decouple import config, Csv
@@ -256,3 +257,8 @@ LOGGING = {
         },
     },
 }
+
+if "test" in sys.argv:
+    LOGGING["handlers"].pop("elk", None)
+    LOGGING["loggers"]["api_info"]["handlers"] = ["console"]
+    LOGGING["loggers"]["apps.api.v1.auth.views"]["handlers"] = ["console"]

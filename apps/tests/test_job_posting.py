@@ -2,11 +2,10 @@ from rest_framework.test import APITestCase
 from rest_framework import status
 from model_bakery import baker
 from django.utils import timezone
-
-from apps.hr_user.models import HRUser
 from apps.hr_company.models import HRCompany
 from apps.client_company.models import ClientCompany
 from apps.job_posting.models import JobPosting
+from libs.tests import create_hr_user
 
 
 class JobPostingAPITestCase(APITestCase):
@@ -16,7 +15,8 @@ class JobPostingAPITestCase(APITestCase):
         password = "testpass123"
         cls.hr_company = baker.make(HRCompany)
         cls.client_company = baker.make(ClientCompany)
-        cls.user = baker.make(HRUser, hr_company=cls.hr_company, is_active=True, email="test@gmail.com")
+        user_data = {"email": "test@gmail.com", "is_active": True, "hr_company": cls.hr_company}
+        cls.user = create_hr_user(**user_data)
         cls.user.set_password(password)
         cls.user.save()
         cls.user.client_companies.add(cls.client_company)

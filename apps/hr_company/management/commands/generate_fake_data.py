@@ -74,7 +74,7 @@ class Command(BaseCommand):
     def _create_candidates(self, count: int, fake: Faker, hr_users: List[HRUser]):
         candidates = [
             Candidate(
-                recruiter=random.choice(hr_users),
+                hr_user=random.choice(hr_users),
                 name=fake.first_name(),
                 email=fake.unique.email(),
                 phone=fake.phone_number()[:20],

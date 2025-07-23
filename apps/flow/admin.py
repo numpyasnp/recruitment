@@ -27,7 +27,7 @@ class CandidateFlowAdmin(admin.ModelAdmin):
         if db_field.name == "job_posting":
             kwargs["queryset"] = JobPosting.objects.filter(hr_user=request.user)
         if db_field.name == "candidate":
-            kwargs["queryset"] = Candidate.objects.filter(recruiter=request.user)
+            kwargs["queryset"] = Candidate.objects.filter(hr_user=request.user)
         if db_field.name == "hr_user":
             kwargs["queryset"] = HRUser.objects.filter(id=request.user.id)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)

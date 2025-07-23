@@ -44,7 +44,7 @@ class WeeklyActivityReportPdf(celery.Task):
             now = timezone.now()
             # todo: add early return if latex path does not exists
             # todo: add generic path like which pdflatex
-            latex_compiler_path = "/usr/bin/pdflatex"
+            # latex_compiler_path = "/usr/bin/pdflatex"
             logs = CandidateActivityLog.objects.select_related("activity").from_year_start()
 
             activity_types = list(Activity.objects.values_list("name", flat=True))
@@ -80,7 +80,7 @@ class WeeklyActivityReportPdf(celery.Task):
             os.makedirs(reports_dir, exist_ok=True)
             # todo: ASK! does file name need unique uuid prefix or file_name1 - file_name2 it's ok ?
             pdf_path = os.path.join(reports_dir, f"weekly_activity_report_{now.year}_{now.month:02d}")
-            doc.generate_pdf(compiler=latex_compiler_path, filepath=pdf_path, clean_tex=False)
+            doc.generate_pdf(filepath=pdf_path, clean_tex=False)
             return {"status": "success", "file": pdf_path}
         except Exception as e:
             return {"status": "error", "message": str(e)}
@@ -131,7 +131,7 @@ class MonthlyActivityReportPdf(celery.Task):
             reports_dir = os.path.join(settings.BASE_DIR, "reports")
             os.makedirs(reports_dir, exist_ok=True)
             pdf_path = os.path.join(reports_dir, f"monthly_activity_report_{now.year}_{now.month:02d}")
-            doc.generate_pdf(compiler=latex_compiler_path, filepath=pdf_path, clean_tex=False)
+            doc.generate_pdf(filepath=pdf_path, clean_tex=False)
             return {"status": "success", "file": pdf_path}
         except Exception as e:
             return {"status": "error", "message": str(e)}
