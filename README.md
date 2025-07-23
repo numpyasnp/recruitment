@@ -42,7 +42,7 @@ A modern, modular, and scalable recruitment platform for managing hiring process
 ### 2. Clone the Project
 ```bash
 git clone <repo-url>
-cd IK
+cd recruitment
 ```
 
 ### 3. Start All Services
