@@ -10,6 +10,14 @@ from .models import CandidateFlow, Status, Activity, CandidateActivityLog
 class CandidateFlowAdmin(admin.ModelAdmin):
     list_select_related = ("job_posting", "candidate", "hr_user", "status")
     list_display = ["id", "job_posting", "candidate", "hr_user", "status"]
+    search_fields = [
+        "job_posting__title",
+        "candidate__name",
+        "candidate__email",
+        "candidate__phone",
+        "candidate__work_experiences__company",
+        "candidate__educations__school",
+    ]
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
