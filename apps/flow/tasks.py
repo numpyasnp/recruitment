@@ -40,7 +40,7 @@ class MonthlyActivityReportPdf(BaseActivityReportPdfTask):
         monthly_counts = defaultdict(lambda: {atype: 0 for atype in activity_types})
         for log in logs:
             month = log.date_created.month
-            activity_name = log.activity.name
+            activity_name = log.candidate_flow.activity.name
             monthly_counts[month][activity_name] += 1
         return monthly_counts
 
