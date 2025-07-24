@@ -61,7 +61,7 @@ class CandidateFlow(TimeStampedModel):
         db_table = "candidate_flow"
 
 
-class CandidateActivityLogQuerySet(QuerySet):
+class CandidateFlowLogQuerySet(QuerySet):
     def from_year_start(self):
         now = timezone.now()
         year_start = timezone.datetime(now.year, 1, 1, tzinfo=now.tzinfo)
@@ -74,7 +74,7 @@ class CandidateFlowLog(TimeStampedModel):
     performed_by = models.ForeignKey("hr_user.HRUser", null=True, on_delete=models.SET_NULL)
     changes = models.JSONField(null=True, blank=True)
 
-    objects = CandidateActivityLogQuerySet.as_manager()
+    objects = CandidateFlowLogQuerySet.as_manager()
 
     class Meta:
         verbose_name = "Candidate Flow Log"

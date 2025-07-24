@@ -2,7 +2,7 @@ import os
 from django.test import TestCase, override_settings
 from model_bakery import baker
 from django.utils import timezone
-from apps.flow.models import Activity, CandidateActivityLog
+from apps.flow.models import Activity, CandidateFlowLog
 from apps.flow.tasks import WeeklyActivityReportPdf
 from libs.tests import create_candidate_flow
 
@@ -16,15 +16,16 @@ class WeeklyActivityReportPdfTaskTest(TestCase):
             baker.make(Activity, name="Telefon Görüşmesi"),
             baker.make(Activity, name="Mülakat"),
         ]
-        self.candidate_flow = create_candidate_flow()
+        activity = Activity.objects.first()
+        self.candidate_flow = create_candidate_flow(activity=activity)
         now = timezone.now()
         for week, activity in enumerate(self.activities, start=1):
             for i in range(3):
                 log_date = now - timezone.timedelta(weeks=(2 - week), days=i)
                 baker.make(
-                    CandidateActivityLog,
+                    CandidateFlowLog,
                     candidate_flow=self.candidate_flow,
-                    activity=activity,
+                    candidate_flow__activity=activity,
                     date_created=log_date,
                 )
 

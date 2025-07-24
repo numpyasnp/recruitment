@@ -1,8 +1,8 @@
 import calendar
 from collections import defaultdict
 
-from flow.base_tasks import BaseActivityReportPdfTask
-from flow.helpers import latex_escape
+from apps.flow.base_tasks import BaseActivityReportPdfTask
+from apps.flow.helpers import latex_escape
 from recruitment.celery import app
 
 
@@ -13,7 +13,7 @@ class WeeklyActivityReportPdf(BaseActivityReportPdfTask):
         weekly_counts = defaultdict(lambda: {atype: 0 for atype in activity_types})
         for log in logs:
             week = log.date_created.isocalendar()[1]
-            activity_name = log.activity.name
+            activity_name = log.candidate_flow.activity.name
             weekly_counts[week][activity_name] += 1
         return weekly_counts
 

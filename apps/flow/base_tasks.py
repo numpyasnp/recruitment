@@ -5,7 +5,7 @@ from django.utils import timezone
 from pylatex import Document, Section, Table, Tabular, NoEscape
 from django.conf import settings
 
-from apps.flow.models import CandidateActivityLog, Activity
+from apps.flow.models import CandidateFlowLog, Activity
 from .helpers import latex_escape
 
 
@@ -44,7 +44,7 @@ class BaseActivityReportPdfTask(celery.Task):
     def run(self, *args, **kwargs):
         try:
             now = timezone.now()
-            logs = CandidateActivityLog.objects.select_related("activity").from_year_start()
+            logs = CandidateFlowLog.objects.select_related("candidate_flow").from_year_start()
             activity_types = list(Activity.objects.values_list("name", flat=True))
             grouped_counts = self.get_grouped_counts(logs, activity_types)
 
