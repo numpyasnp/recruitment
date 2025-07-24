@@ -68,14 +68,15 @@ class CandidateActivityLogQuerySet(QuerySet):
         return self.filter(date_created__gte=year_start)
 
 
-class CandidateActivityLog(TimeStampedModel):
-    candidate_flow = models.ForeignKey(CandidateFlow, on_delete=models.CASCADE, related_name="candidate_activities_log")
-    activity = models.ForeignKey(Activity, on_delete=models.PROTECT, related_name="candidate_activities_log")
-    note = models.TextField(blank=True, null=True)
+class CandidateFlowLog(TimeStampedModel):
+    candidate_flow = models.ForeignKey("CandidateFlow", on_delete=models.CASCADE)
+    action = models.CharField(max_length=20, choices=[("create", "Create"), ("update", "Update"), ("delete", "Delete")])
+    performed_by = models.ForeignKey("hr_user.HRUser", null=True, on_delete=models.SET_NULL)
+    changes = models.JSONField(null=True, blank=True)
 
     objects = CandidateActivityLogQuerySet.as_manager()
 
     class Meta:
-        verbose_name = "Candidate Activity Log"
-        verbose_name_plural = "Candidate Activity Logs"
-        db_table = "candidate_activity_log"
+        verbose_name = "Candidate Flow Log"
+        verbose_name_plural = "Candidate Flow Logs"
+        db_table = "candidate_flow_log"
