@@ -5,7 +5,8 @@ from django.utils import timezone
 from apps.hr_company.models import HRCompany
 from apps.client_company.models import ClientCompany
 from apps.job_posting.models import JobPosting
-from libs.tests import create_hr_user
+from libs.tests import create_hr_user, generate_random_email
+from django.urls import reverse
 
 
 class JobPostingAPITestCase(APITestCase):
@@ -15,7 +16,7 @@ class JobPostingAPITestCase(APITestCase):
         password = "testpass123"
         cls.hr_company = baker.make(HRCompany)
         cls.client_company = baker.make(ClientCompany)
-        user_data = {"email": "test@gmail.com", "is_active": True, "hr_company": cls.hr_company}
+        user_data = {"email": generate_random_email(), "is_active": True, "hr_company": cls.hr_company}
         cls.user = create_hr_user(**user_data)
         cls.user.set_password(password)
         cls.user.save()
@@ -24,7 +25,7 @@ class JobPostingAPITestCase(APITestCase):
     def setUp(self):
         password = "testpass123"
         self.client.login(email=self.user.email, password=password)
-        self.api_url = "/api/v1/job-postings/"
+        self.api_url = reverse("v1:job_posting:jobposting-list")
 
     def test_create_job_posting(self):
         data = {
@@ -52,7 +53,7 @@ class JobPostingAPITestCase(APITestCase):
         job_posting = baker.make(
             JobPosting, hr_user=self.user, hr_company=self.hr_company, client_company=self.client_company
         )
-        url = f"{self.api_url}{job_posting.id}/"
+        url = reverse("v1:job_posting:jobposting-detail", args=[job_posting.id])
         data = {
             "title": "Updated Title",
             "hr_company": self.hr_company.id,
@@ -70,7 +71,7 @@ class JobPostingAPITestCase(APITestCase):
         job_posting = baker.make(
             JobPosting, hr_user=self.user, hr_company=self.hr_company, client_company=self.client_company
         )
-        url = f"{self.api_url}{job_posting.id}/"
+        url = reverse("v1:job_posting:jobposting-detail", args=[job_posting.id])
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(JobPosting.objects.filter(id=job_posting.id).exists())
@@ -83,7 +84,7 @@ class JobPostingAPITestCase(APITestCase):
             client_company=self.client_company,
             is_active=False,
         )
-        url = f"{self.api_url}{job_posting.id}/activate/"
+        url = reverse("v1:job_posting:jobposting-activate", args=[job_posting.id])
         response = self.client.post(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         job_posting.refresh_from_db()
@@ -97,7 +98,7 @@ class JobPostingAPITestCase(APITestCase):
             client_company=self.client_company,
             is_active=True,
         )
-        url = f"{self.api_url}{job_posting.id}/deactivate/"
+        url = reverse("v1:job_posting:jobposting-deactivate", args=[job_posting.id])
         response = self.client.post(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         job_posting.refresh_from_db()
