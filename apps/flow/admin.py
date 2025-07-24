@@ -8,8 +8,8 @@ from .models import CandidateFlow, Status, Activity, CandidateActivityLog
 
 @admin.register(CandidateFlow)
 class CandidateFlowAdmin(admin.ModelAdmin):
-    list_select_related = ("job_posting", "candidate", "hr_user", "status")
-    list_display = ["id", "job_posting", "candidate", "hr_user", "status"]
+    list_select_related = ("job_posting", "candidate", "hr_user", "status", "activity")
+    list_display = ["id", "job_posting", "candidate", "hr_user", "status", "activity"]
     search_fields = [
         "job_posting__title",
         "candidate__name",

@@ -11,6 +11,7 @@ class CandidateFlowSerializer(serializers.ModelSerializer):
             "candidate",
             "hr_user",
             "status",
+            "activity",
             "date_created",
             "date_updated",
         ]
