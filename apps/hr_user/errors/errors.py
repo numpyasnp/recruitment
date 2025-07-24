@@ -2,7 +2,7 @@ from http import HTTPStatus
 from typing import Optional
 
 from apps.hr_user.errors.error_codes import HRUserErrorCodes
-from rest_framework.exceptions import APIException
+from libs.base_error import APIException
 from django.utils.translation import gettext_lazy as _
 
 
