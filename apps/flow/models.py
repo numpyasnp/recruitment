@@ -19,6 +19,19 @@ class Status(TimeStampedModel):
         db_table = "status"
 
 
+class Activity(TimeStampedModel):
+    name = models.CharField(max_length=255)
+    note = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Activity"
+        verbose_name_plural = "Activities"
+        db_table = "activity"
+
+
 class CandidateFlowQuerySet(QuerySet):
 
     def managed_by_user(self, user: HRUser):
@@ -34,6 +47,7 @@ class CandidateFlow(TimeStampedModel):
     status = models.ForeignKey(
         "Status", on_delete=models.SET_NULL, null=True, blank=True, related_name="candidate_flows"
     )
+    activity = models.ForeignKey(Activity, on_delete=models.PROTECT, related_name="candidate_flows")
 
     objects = CandidateFlowQuerySet.as_manager()
 
@@ -45,19 +59,6 @@ class CandidateFlow(TimeStampedModel):
         verbose_name = "Candidate Flow"
         verbose_name_plural = "Candidate Flows"
         db_table = "candidate_flow"
-
-
-class Activity(TimeStampedModel):
-    name = models.CharField(max_length=255)
-    note = models.TextField(blank=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = "Activity"
-        verbose_name_plural = "Activities"
-        db_table = "activity"
 
 
 class CandidateActivityLogQuerySet(QuerySet):
