@@ -30,6 +30,7 @@ app.conf.update(
     worker_max_tasks_per_child=100,
     worker_concurrency=2,
     worker_max_memory_per_child=150_000,
+    ignore_task_result=True,
     beat_schedule=CELERYBEAT_SCHEDULE,
 )
 
